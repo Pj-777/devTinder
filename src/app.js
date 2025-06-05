@@ -1,4 +1,4 @@
-const express = require('express');                           //importing the require from node_modules we are using express.js to create a server
+const express = require('express');                         //importing the require from node_modules we are using express.js to create a server
 
 const app = express();
 
@@ -8,10 +8,10 @@ app.get("/",(req,res) => {
 
 });
 
-app.get("/user1", (req,res) => {                                 //Add an API like "/test" 
+app.get("/user1", (req,res) => {                                  //Add an API like "/test" 
 
     console.log(req.query);
-    res.send({firstname: "Priyanshu", lastname: "Jha"});       //response as "Hello from the server!" using command express.use
+    res.send({firstname: "Priyanshu", lastname: "Jha"});        //response as "Hello from the server!" using command express.use
     console.log("Hello World");
 
 });
@@ -80,4 +80,3 @@ app.listen(3000, () => {                              //callback as "Server list
     console.log("Server successfuly listening on port 3000....");
 
 });
-  

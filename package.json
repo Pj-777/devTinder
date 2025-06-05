@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start1": "nodemon src/app.js",
-    "start2": "nodemon src/app2.js"
+    "start2": "nodemon src/auth.js"
   },
   "keywords": [
     "node",

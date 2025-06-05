@@ -3,17 +3,29 @@ const express = require('express');                       //importing the requir
 const app = express();
 
 
-app.use("/admin",(req,res) => {                         //creating an authorization middleware          
+app.use("/admin",(req,res,next) => {                         //creating an authorization middleware    
+    console.log("Admin auth is getting checked!");      
 
 const token="xyz";
 const isAdminAuthorized=(token=="xyz");                //checking whether the token is 'xyz' and then authorizes
-
-    if(isAdminAuthorized){
-        res.send("All data sent!");
+    if(!isAdminAuthorized){
+        res.status(404).send("Authentication failed!");
     }
    else{
-    res.status(404).send("Authentication failed!");
+        next();
     }
+
+});
+
+app.get("/admin/getAlldata",(req,res) => {
+
+    res.send("All data sent!");
+
+});
+
+app.get("/admin/deleteUserdata", (req,res) => {
+
+    res.send("User data deleted!");
 
 });
 
