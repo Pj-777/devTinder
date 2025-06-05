@@ -2,8 +2,7 @@ const express = require('express');                       //importing the requir
 
 const app = express();
 
-
-app.use("/admin",(req,res,next) => {                         //creating an authorization middleware    
+const adminAuth = (req,res,next) => {                         //creating an authorization middleware    
     console.log("Admin auth is getting checked!");      
 
 const token="xyz";
@@ -15,22 +14,5 @@ const isAdminAuthorized=(token=="xyz");                //checking whether the to
         next();
     }
 
-});
-
-app.get("/admin/getAlldata",(req,res) => {
-
-    res.send("All data sent!");
-
-});
-
-app.get("/admin/deleteUserdata", (req,res) => {
-
-    res.send("User data deleted!");
-
-});
-
-app.listen(3000, () => {                                   //callback as "Server listening to the port 3000...."
-
-    console.log("Server successfuly listening on port 3000....");
-
-});
+};
+module.exports={adminAuth};
