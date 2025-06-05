@@ -80,6 +80,4 @@ app.listen(3000, () => {                              //callback as "Server list
     console.log("Server successfuly listening on port 3000....");
 
 });
-
-//Use app.get instead of app.use for specific methods like GET,POST etc. or we can just change the order of routes
-//
+  
