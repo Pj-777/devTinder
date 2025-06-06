@@ -2,7 +2,7 @@ const express = require('express');                         //importing the requ
 
 const app = express();
 
-const {adminAuth}= require("./src/auth.js");
+const {adminAuth}= require("./middlewares/auth.js");
 
 app.use("/admin",adminAuth);
 
@@ -23,7 +23,6 @@ app.get("/admin/deleteUserdata", (req,res) => {
     res.send("User data deleted!");
 
 });
-
 
 app.listen(3000, () => {                              //callback as "Server listening to the port 3000...."
 
