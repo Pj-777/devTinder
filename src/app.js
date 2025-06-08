@@ -3,6 +3,7 @@ const {connectDB} = require("./config/database.js");
 const app = express();
 const {adminAuth}= require("./middlewares/auth.js");
 const User= require("./models/user.js");
+require("dotenv").config();
 
 app.use("/admin",adminAuth);
 
@@ -49,7 +50,7 @@ app.post("/signup", async(req,res) => {
 connectDB()
   .then(() => {
     console.log("Database connection successful!");
-    app.listen(3000, () => {                              //callback as "Server listening to the port 3000...."
+    app.listen(process.env.PORT, () => {                              //callback as "Server listening to the port 3000...."
     console.log("Server successfuly listening on port 3000....");
     });
 })
