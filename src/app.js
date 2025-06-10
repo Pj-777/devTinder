@@ -1,9 +1,10 @@
-const express = require('express');                        //importing the require from node_modules we are using express.js to create a server
-const {connectDB} = require("./config/database.js");
-const app = express();
-const {adminAuth}= require("./middlewares/auth.js");
-const User= require("./models/user.js");
 require("dotenv").config();
+const express = require('express');
+const app = express();                        //importing the require from node_modules we are using express.js to create a server
+const {adminAuth}= require("./middlewares/auth.js");
+const {connectDB} = require("./config/database.js");
+const User= require("./models/user.js");
+
 
 app.use("/admin",adminAuth);
 
