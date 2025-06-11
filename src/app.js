@@ -1,44 +1,13 @@
 require("dotenv").config();
 const express = require('express');
-const app = express();                        //importing the require from node_modules we are using express.js to create a server
-const {adminAuth}= require("./middlewares/auth.js");
+const app = express();                         
 const {connectDB} = require("./config/database.js");
 const User= require("./models/user.js");
 
-
-app.use("/admin",adminAuth);
-
-app.get("/user", (req,res) => {
-    //throw new Error("shgfe");
-    res.send("User data sent!");      
-});
-
-app.use("/",(err,req,res,next) => {
-    if(err){
-        res.status(500).send("something went wrong");
-    }
-});
-
-app.get("/admin/getAlldata",(req,res) => {
-    res.send("All data sent!");
-});
-
-app.get("/admin/deleteUserdata", (req,res) => {
-    res.send("User data deleted!");
-});
+app.use(express.json());
 
 app.post("/signup", async(req,res) => {
-
-    //creating a new instance of the User model
-    const user=new User( 
-        {
-        firstName: "Priyanshu",
-        lastName: "Jha",
-        emailId: "pj4739479@gmail.com",
-        password: "pj@123",
-        age: "21"
-    }
-);
+    const user=new User(req.body);
     try{
     await user.save();
     res.send("User added successfuly!");
@@ -48,13 +17,47 @@ app.post("/signup", async(req,res) => {
     }    
 });
 
+app.get("/user", async(req,res) => {
+    const email = req.body.emailId;
+
+  try{
+       const user=await User.findOne({emailId:email});
+       if(!user){
+          res.status(404).send("User not found!");
+       }
+       else{
+          res.send(user);
+       } 
+    }
+    catch{
+       res.status(400).send("Something went wrong!");
+    }
+
+});
+
+app.get("/feed", async(req,res) =>{
+
+    try{
+        const user= await User.find({});
+        if(user.length==0){
+            res.status(404).send("User not found!");
+        }
+        else{
+            res.send(user);
+        }
+    }
+    catch{
+        res.status(400).send("Something went wrong!");
+    }
+});
+
 connectDB()
   .then(() => {
     console.log("Database connection successful!");
-    app.listen(process.env.PORT, () => {                              //callback as "Server listening to the port 3000...."
+    app.listen(process.env.PORT, () => {                              
     console.log("Server successfuly listening on port 3000....");
     });
 })
    .catch(err => {
     console.error("Database connection failed!");
-    });   
+    });
