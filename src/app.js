@@ -13,7 +13,7 @@ app.post("/signup", async(req,res) => {
         res.send("User added successfuly!");
     }
     catch(err){
-        res.status(400).send("User not added!");
+        res.status(400).send(err.message);
     }    
 });
 
@@ -30,7 +30,7 @@ app.get("/user", async(req,res) => {
        } 
     }
     catch(err){
-       res.status(400).send("Something went wrong!");
+       res.status(400).send(err.message);
     }
 });
 
@@ -46,7 +46,7 @@ app.get("/feed", async(req,res) =>{
         }
     }
     catch(err){
-        res.status(400).send("Something went wrong!");
+        res.status(400).send(err.message);
     }
 });
 
@@ -62,7 +62,7 @@ app.delete("/delete", async(req,res) =>{
         }
     }
     catch(err){
-            res.status(400).send("Something went wrong!");
+            res.status(400).send(err.message);
     }
 });
 
@@ -73,7 +73,7 @@ app.patch("/update", async(req,res) => {
     try{
         const ALLOWED_UPDATES=["_id","photoUrl","about","gender","age","skills"];
         const isUpdateAllowed= Object.keys(data).every((k) =>
-        ALLOWED_UPDATES.includes(k) 
+            ALLOWED_UPDATES.includes(k) 
        );
         if(!isUpdateAllowed){
            throw new Error("Update not allowed!");
@@ -96,4 +96,4 @@ connectDB()
 })
    .catch(err => {
     console.error("Database connection failed!");
-});  
+});
