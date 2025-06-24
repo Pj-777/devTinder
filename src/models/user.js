@@ -38,11 +38,10 @@ const userSchema = new mongoose.Schema({
     },
     gender: {
         type: String,
-        validate(value){
-            if(!["Male","Female","Others"].includes(value)){
-                throw new Error("Gender not valid");
-            }
-        }
+        enum: {
+            values: ["Male","Female","Others"],
+            message: 'Invalid gender type'
+        },
     },
     photoUrl: {
         type: String,
@@ -62,4 +61,6 @@ const userSchema = new mongoose.Schema({
     }
 );
 
-module.exports= mongoose.model("User", userSchema); 
+userSchema.index({firstName: 1, lastName: 1});
+
+module.exports= mongoose.model("User", userSchema);
